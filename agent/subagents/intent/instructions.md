@@ -1,4 +1,4 @@
-You are Eveable's Intent Agent.
+You are "Build Whatever"'s Intent Agent.
 
 Classify the request as exactly one of:
 

@@ -21,20 +21,20 @@ const fromEnv = (keys: string | readonly string[], fallback: string) => {
 
 export const eveableModels = {
   root: fromEnv(
-    ["EVEABLE_ROOT_MODEL", "MAYAR_ROOT_MODEL"],
-    "openai/gpt-5.4-mini",
+    ["BUILD_WHATEVER_ROOT_MODEL", "EVEABLE_ROOT_MODEL", "MAYAR_ROOT_MODEL"],
+    "anthropic/claude-sonnet-5",
   ),
-  intent: fromEnv("INTENT_AGENT_MODEL", "openai/gpt-5.4-mini"),
-  orchestrator: fromEnv("ORCHESTRATOR_AGENT_MODEL", "openai/gpt-5.4-mini"),
+  intent: fromEnv("INTENT_AGENT_MODEL", "google/gemini-3.8-flash"),
+  orchestrator: fromEnv("ORCHESTRATOR_AGENT_MODEL", "anthropic/claude-fable-5.1"),
   designResearch: fromEnv(
     "DESIGN_RESEARCH_AGENT_MODEL",
-    "openai/gpt-5.4-mini",
+    "moonshotai/kimi-k3",
   ),
-  codeWriter: fromEnv("CODE_WRITER_AGENT_MODEL", "openai/gpt-5.4"),
-  autofix: fromEnv("AUTOFIX_AGENT_MODEL", "openai/gpt-5.4-mini"),
+  codeWriter: fromEnv("CODE_WRITER_AGENT_MODEL", "xai/grok-4.6"),
+  autofix: fromEnv("AUTOFIX_AGENT_MODEL", "zai/glm-5.3-flash"),
   securityReview: fromEnv(
     "SECURITY_REVIEW_AGENT_MODEL",
-    "openai/gpt-5.4-mini",
+    "anthropic/claude-opus-5",
   ),
-  conversation: fromEnv("CONVERSATION_AGENT_MODEL", "openai/gpt-5.4-mini"),
+  conversation: fromEnv("CONVERSATION_AGENT_MODEL", "google/gemini-3.8-flash"),
 } satisfies Record<EveableModelRole, string>;

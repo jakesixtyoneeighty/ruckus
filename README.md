@@ -1,6 +1,6 @@
-# Eveable
+# "Build Whatever" by sixtyoneeighty - powered by Eve
 
-Eveable is an open-source alternative to Lovable built on Vercel Eve. It turns a prompt into a complete Next.js application, validates it in an Eve sandbox, starts a live preview, runs a security review, deploys to Vercel, and returns a verified deployment URL.
+"Build Whatever" by sixtyoneeighty - powered by Eve (Eveable) is an open-source alternative to Lovable built on Vercel Eve. It turns a prompt into a complete Next.js application, validates it in an Eve sandbox, starts a live preview, runs a security review, deploys to Vercel, and returns a verified deployment URL.
 
 Eveable began as a standalone Eve-powered implementation of the existing `jaxagentsdk` builder pipeline. The NestJS `jaxagentsdk` remains untouched, so developers can compare the original architecture with a filesystem-first Eve implementation.
 
@@ -315,24 +315,21 @@ Never commit real `.env.local` values. Generated apps must not receive real secr
 
 ## Model Configuration
 
-Eveable can use different models per role.
+"Build Whatever" can use different models per role.
 
 | Role | Env var | Default |
 | --- | --- | --- |
-| Root | `EVEABLE_ROOT_MODEL` | `openai/gpt-5.4-mini` |
-| Intent | `INTENT_AGENT_MODEL` | `openai/gpt-5.4-mini` |
-| Orchestrator | `ORCHESTRATOR_AGENT_MODEL` | `openai/gpt-5.4-mini` |
-| Design Research | `DESIGN_RESEARCH_AGENT_MODEL` | `openai/gpt-5.4-mini` |
-| Code Writer | `CODE_WRITER_AGENT_MODEL` | `openai/gpt-5.4` |
-| Autofix | `AUTOFIX_AGENT_MODEL` | `openai/gpt-5.4-mini` |
-| Security Review | `SECURITY_REVIEW_AGENT_MODEL` | `openai/gpt-5.4-mini` |
-| Conversation | `CONVERSATION_AGENT_MODEL` | `openai/gpt-5.4-mini` |
+| Root | `EVEABLE_ROOT_MODEL` | `anthropic/claude-sonnet-5` |
+| Intent | `INTENT_AGENT_MODEL` | `google/gemini-3.8-flash` |
+| Orchestrator | `ORCHESTRATOR_AGENT_MODEL` | `anthropic/claude-fable-5.1` |
+| Design Research | `DESIGN_RESEARCH_AGENT_MODEL` | `moonshotai/kimi-k3` |
+| Code Writer | `CODE_WRITER_AGENT_MODEL` | `xai/grok-4.6` |
+| Autofix | `AUTOFIX_AGENT_MODEL` | `zai/glm-5.3-flash` |
+| Security Review | `SECURITY_REVIEW_AGENT_MODEL` | `anthropic/claude-opus-5` (explicit invocation only) |
+| Conversation | `CONVERSATION_AGENT_MODEL` | `google/gemini-3.8-flash` |
 
-Use Vercel AI Gateway model ids, including provider prefixes such as `openai/gpt-5.4-mini`.
-The defaults keep routing, research, review, and chat on mini, while CodeWriter
-uses standard `openai/gpt-5.4` for larger structured code output. You can still
-assign stronger, cheaper, or provider-specific models per role through the env
-vars above.
+Use Vercel AI Gateway model ids, including provider prefixes such as `anthropic/claude-sonnet-5`.
+You can assign provider-specific models or overrides per role through the env vars above.
 
 ## Install
 
