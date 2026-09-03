@@ -223,7 +223,7 @@ Those results include the `sandboxId`, `workspacePath`, generated file list, com
 
 - Node.js `>=24 <27`
 - pnpm `11.5.0`
-- Vercel Eve `0.11.4`
+- Vercel Eve `>=0.18.0`
 - Vercel CLI available locally or installable through `npx`
 
 ## Environment
