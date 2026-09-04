@@ -1,0 +1,340 @@
+<style>
+  .landing-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .ambient-aurora {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 650px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.2) 35%, rgba(56, 189, 248, 0.1) 60%, transparent 75%);
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .landing-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
+    position: relative;
+    z-index: 10;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.6);
+  }
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .user-badge {
+    padding: 5px 12px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.78rem;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .user-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #6366f1;
+  }
+
+  .landing-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 10;
+  }
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: #c084fc;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  }
+  .hero-heading {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-subheading {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Centered Hero Prompt Box */
+  .hero-prompt-card {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(18, 22, 34, 0.85);
+    backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 22px;
+    padding: 16px 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.15);
+    position: relative;
+    z-index: 20;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-prompt-card:focus-within {
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.25);
+  }
+
+  .prompt-textarea {
+    width: 100%;
+    min-height: 80px;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    font-family: inherit;
+  }
+  .prompt-textarea::placeholder {
+    color: #475569;
+  }
+
+  .prompt-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .prompt-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .option-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .build-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5);
+    transition: all 0.2s;
+  }
+  .build-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 26px rgba(168, 85, 247, 0.7);
+  }
+
+  /* Quick Suggestion Pills */
+  .suggestions-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 720px;
+    margin-bottom: 3.5rem;
+    z-index: 10;
+  }
+  .suggestion-pill {
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .suggestion-pill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* Morph Animation Diagram */
+  .transition-explainer {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 1rem;
+    z-index: 10;
+  }
+  .explainer-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .explainer-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+    color: #94a3b8;
+  }
+  .step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+</style>
+
+<div class="landing-container">
+  <div class="ambient-aurora"></div>
+
+  <!-- Top App Navigation -->
+  <div class="landing-nav">
+    <div class="nav-logo">
+      <div class="nav-logo-box">✦</div>
+      <span>Eveable</span>
+    </div>
+    <div class="nav-user">
+      <div class="user-badge">
+        <div class="user-avatar"></div>
+        <span>jake@sixtyoneeighty.com</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Headline -->
+  <div class="landing-hero">
+    <div class="hero-pill">
+      <span>⚡️ Multi-Agent Autonomous Web Builder</span>
+    </div>
+    <h1 class="hero-heading">What would you like to build?</h1>
+    <p class="hero-subheading">Type any concept or paste a design link. Eve's multi-agent system will architect, design, validate, and deploy it.</p>
+  </div>
+
+  <!-- Centered Hero Prompt Card -->
+  <div class="hero-prompt-card">
+    <textarea class="prompt-textarea" placeholder="Build a high-converting dark-mode SaaS landing page for an AI video platform with Bento grid features, interactive pricing calculator, and a customer testimonial carousel..."></textarea>
+    
+    <div class="prompt-bottom-bar">
+      <div class="prompt-options">
+        <button class="option-btn">📎 Attach Screenshot / Wireframe</button>
+        <button class="option-btn">🎨 Refero Design Inspiration</button>
+        <button class="option-btn">⚡️ Fast One-Page</button>
+      </div>
+      <button class="build-btn">
+        <span>Build with Eve</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Quick Suggestions -->
+  <div class="suggestions-row">
+    <div class="suggestion-pill">✦ Cyberpunk Ramen Bar with Table Reservation</div>
+    <div class="suggestion-pill">✦ Developer Portfolio with 3D Canvas & Tech Stack</div>
+    <div class="suggestion-pill">✦ AI Sound Generator SaaS with Waveform Audio Player</div>
+    <div class="suggestion-pill">✦ Minimalist E-Commerce Store with Slide-out Cart</div>
+  </div>
+
+  <!-- Morph Transition Explainer -->
+  <div class="transition-explainer">
+    <div class="explainer-title">
+      <span>✨ The Seamless "Zero-Reload" Transition into Studio Canvas</span>
+    </div>
+    <div class="explainer-step">
+      <div class="step-num">1</div>
+      <div><strong>Hit "Build with Eve" (or press Enter):</strong> Next.js App Router creates a durable project record in Supabase and initializes an Eve session cursor via <code>useEveAgent.send({ message: prompt })</code>.</div>
+    </div>
+    <div class="explainer-step">
+      <div class="step-num">2</div>
+      <div><strong>Liquid Spring Morph:</strong> Framer Motion animates the hero prompt box down into the bottom floating command dock, while the hero text cross-fades into the full-screen canvas preview stage.</div>
+    </div>
+    <div class="explainer-step">
+      <div class="step-num">3</div>
+      <div><strong>HUD Lights Up:</strong> The top HUD pipeline ignites with <code>Intent</code> $\to$ <code>Orchestrator</code> $\to$ <code>Design Research</code>, and the build proceeds in real-time right before your eyes!</div>
+    </div>
+  </div>
+</div>

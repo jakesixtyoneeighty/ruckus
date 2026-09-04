@@ -1,0 +1,394 @@
+<style>
+  .hero-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: rgba(10, 132, 255, 0.12);
+    color: #0a84ff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(10, 132, 255, 0.25);
+  }
+  .hero-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .studio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .studio-card {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .studio-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+  .studio-card.selected {
+    border-color: var(--accent);
+    background: var(--selected-bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .card-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    width: fit-content;
+  }
+
+  .layout-preview {
+    background: #090a0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+  }
+
+  .lp-bar {
+    height: 14px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .lp-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .lp-dot.red { background: #ff5f56; }
+  .lp-dot.yellow { background: #ffbd2e; }
+  .lp-dot.green { background: #27c93f; }
+
+  /* Diagram 1: Split Studio */
+  .mock-split {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 8px;
+    flex: 1;
+  }
+  .mock-chat-pane {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .mock-bubble {
+    height: 12px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    width: 80%;
+  }
+  .mock-bubble.agent {
+    background: linear-gradient(90deg, rgba(10, 132, 255, 0.4), rgba(99, 102, 241, 0.4));
+    border: 1px solid rgba(99, 102, 241, 0.5);
+    width: 95%;
+    height: 28px;
+  }
+  .mock-bubble.approval {
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px dashed rgba(234, 179, 8, 0.5);
+    border-radius: 4px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    gap: 4px;
+  }
+  .mock-preview-pane {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .mock-preview-tabs {
+    height: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 6px;
+    font-size: 8px;
+    color: #888;
+  }
+  .mock-tab.active {
+    background: rgba(10, 132, 255, 0.3);
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+  .mock-preview-body {
+    flex: 1;
+    background: #111420;
+    margin: 4px;
+    border-radius: 4px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 9px;
+  }
+
+  /* Diagram 2: 3-Column */
+  .mock-triple {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1.2fr;
+    gap: 6px;
+    flex: 1;
+  }
+  .mock-sidebar {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mock-file-line {
+    height: 6px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    width: 70%;
+  }
+
+  /* Diagram 3: Floating Canvas */
+  .mock-canvas {
+    position: relative;
+    flex: 1;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1), transparent 70%);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mock-canvas-app {
+    width: 75%;
+    height: 70%;
+    margin: 20px auto 0;
+    background: #151824;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .mock-canvas-dock {
+    position: absolute;
+    bottom: 8px;
+    left: 15%;
+    right: 15%;
+    height: 28px;
+    background: rgba(20, 24, 38, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  .feature-list {
+    list-style: none;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+  .feature-list li::before {
+    content: "✓";
+    color: #34c759;
+    font-weight: 700;
+  }
+
+  .highlight-badge {
+    background: rgba(52, 199, 89, 0.12);
+    color: #34c759;
+    border: 1px solid rgba(52, 199, 89, 0.25);
+  }
+</style>
+
+<div class="hero-header">
+  <div class="hero-badge">Eveable Studio Design Direction</div>
+  <h1 class="hero-title">Select Your Preferred Studio Layout & Aesthetic</h1>
+  <p class="hero-desc">We're building an ultra-modern, high-polish workspace with spring animations, glowing borders, and seamless agent orchestration. Which layout archetype fits your vision best?</p>
+</div>
+
+<div class="studio-grid">
+  <!-- Option A -->
+  <div class="studio-card selected" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-pill highlight-badge">★ Recommended (Lovable / v0 Style)</div>
+    
+    <div class="layout-preview">
+      <div class="lp-bar">
+        <div class="lp-dot red"></div>
+        <div class="lp-dot yellow"></div>
+        <div class="lp-dot green"></div>
+        <span style="color: #666; font-size: 8px; margin-left: 6px;">eveable.dev/project/ses_019...</span>
+      </div>
+      <div class="mock-split">
+        <div class="mock-chat-pane">
+          <div class="mock-bubble"></div>
+          <div class="mock-bubble agent"></div>
+          <div class="mock-bubble approval">
+            <div style="width: 8px; height: 8px; background: #eab308; border-radius: 2px;"></div>
+            <span style="color: #eab308; font-size: 7px; font-weight: 600;">Approve Design?</span>
+          </div>
+        </div>
+        <div class="mock-preview-pane">
+          <div class="mock-preview-tabs">
+            <span class="mock-tab active">Live Preview</span>
+            <span class="mock-tab">Code</span>
+            <span class="mock-tab">Logs</span>
+          </div>
+          <div class="mock-preview-body">
+            <div style="width: 60%; height: 8px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-bottom: 4px;"></div>
+            <div style="width: 40%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 2px;"></div>
+            <span style="margin-top: 8px; font-size: 8px; color: #34c759;">● Preview Healthy :4173</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="card-title">A. The Split Studio (Lovable / v0 Style)</h2>
+    <p class="card-desc">The battle-tested dual-pane workspace popularized by Lovable and v0. Clean, focused, and intuitive.</p>
+    
+    <ul class="feature-list">
+      <li>Left: Conversational prompt bar, subagent node pipeline, interactive HITL approval cards</li>
+      <li>Right: Live sandbox preview iframe + responsive viewport toggle (Desktop / Tablet / Mobile)</li>
+      <li>Monaco code browser tab + Diff viewer for inspecting generated source</li>
+      <li>Live terminal & security audit log overlay drawer</li>
+      <li>Obsidian dark theme with neon cyan & indigo glowing accents</li>
+    </ul>
+  </div>
+
+  <!-- Option B -->
+  <div class="studio-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-pill" style="background: rgba(10, 132, 255, 0.12); color: #0a84ff; border: 1px solid rgba(10,132,255,0.25);">Full Dev Cockpit</div>
+    
+    <div class="layout-preview">
+      <div class="lp-bar">
+        <div class="lp-dot red"></div>
+        <div class="lp-dot yellow"></div>
+        <div class="lp-dot green"></div>
+      </div>
+      <div class="mock-triple">
+        <div class="mock-sidebar">
+          <div class="mock-file-line"></div>
+          <div class="mock-file-line" style="width: 50%;"></div>
+          <div class="mock-file-line" style="width: 80%;"></div>
+          <div class="mock-file-line" style="width: 60%;"></div>
+        </div>
+        <div class="mock-chat-pane">
+          <div class="mock-bubble" style="width: 90%;"></div>
+          <div class="mock-bubble agent" style="height: 40px;"></div>
+        </div>
+        <div class="mock-preview-pane">
+          <div class="mock-preview-body">
+            <span style="font-size: 8px; color: #888;">Full Viewport Preview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="card-title">B. The 3-Column IDE Cockpit</h2>
+    <p class="card-desc">For power builders who want immediate access to the file tree, revision history, chat stream, and preview simultaneously.</p>
+    
+    <ul class="feature-list">
+      <li>Left: Persistent project tree, git branch/revisions history, environment secrets</li>
+      <li>Center: Real-time agent discussion and subagent thought traces</li>
+      <li>Right: Dedicated full-height sandbox preview with element inspector click-to-edit</li>
+      <li>Dense, high-information productivity layout (Cursor/Bolt inspired)</li>
+    </ul>
+  </div>
+
+  <!-- Option C -->
+  <div class="studio-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-pill" style="background: rgba(168, 85, 247, 0.12); color: #a855f7; border: 1px solid rgba(168,85,247,0.25);">Next-Gen Canvas</div>
+    
+    <div class="layout-preview">
+      <div class="lp-bar">
+        <div class="lp-dot red"></div>
+        <div class="lp-dot yellow"></div>
+        <div class="lp-dot green"></div>
+      </div>
+      <div class="mock-canvas">
+        <div class="mock-canvas-app"></div>
+        <div class="mock-canvas-dock">
+          <span style="font-size: 8px; color: #a855f7; font-weight: 600;">✦ Ask Eveable to build anything...</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="card-title">C. The Floating Glass Canvas</h2>
+    <p class="card-desc">Preview-first immersive experience where the generated app takes full center stage with a floating liquid-glass command dock.</p>
+    
+    <ul class="feature-list">
+      <li>Generated app occupies maximum screen real estate by default</li>
+      <li>Agent prompt dock floats at the bottom and expands into dynamic cards</li>
+      <li>Animated subagent status nodes float at the top HUD during compilation</li>
+      <li>Maximum visual "wow" factor, great for live presentations and product demos</li>
+    </ul>
+  </div>
+</div>
