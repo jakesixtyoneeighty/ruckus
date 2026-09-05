@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian-950: #07080d;
-  --color-obsidian-900: #0b0d14;
-  --color-obsidian-800: #121622;
-  --color-obsidian-700: #1a2030;
-  --color-obsidian-600: #262e44;
-  --color-electric-cyan: #38bdf8;
-  --color-electric-indigo: #6366f1;
-  --color-electric-purple: #a855f7;
+  /* Ruckus foundation — charcoal, not pure black */
+  --color-ruckus-950: #0a0b0d;
+  --color-ruckus-900: #101214;
+  --color-ruckus-800: #15181c;
+  --color-ruckus-700: #1d2126;
+  --color-ruckus-600: #2a3038;
+
+  /* Ruckus accent system */
+  --color-ruckus-cyan: #00d5ff;
+  --color-ruckus-cyan-dim: #0891b2;
+  --color-ruckus-orange: #ff5a1f;
+  --color-ruckus-orange-dim: #c2410c;
+
+  /* Warm off-white foreground */
+  --color-ruckus-bone: #f5f1e8;
+  --color-ruckus-muted: #9ba3ab;
+
+  /* Kept for status semantics only */
   --color-accent-amber: #fbbf24;
   --color-accent-emerald: #10b981;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
-  --bg-base: #07080d;
-  --bg-surface: #0b0d14;
-  --bg-card: rgba(18, 22, 34, 0.75);
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(99, 102, 241, 0.35);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --bg-base: #0a0b0d;
+  --bg-surface: #101214;
+  --bg-card: rgba(21, 24, 28, 0.88);
+  --bg-elevated: #1d2126;
+  --border-subtle: rgba(245, 241, 232, 0.09);
+  --border-strong: rgba(245, 241, 232, 0.16);
+  --border-cyan: rgba(0, 213, 255, 0.4);
+  --border-orange: rgba(255, 90, 31, 0.45);
+  --text-main: #f5f1e8;
+  --text-muted: #9ba3ab;
+  --ruckus-cyan: #00d5ff;
+  --ruckus-orange: #ff5a1f;
 }
 
 * {
@@ -30,68 +48,214 @@
 body {
   background-color: var(--bg-base);
   color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Glassmorphism primitives */
+/* Obvious keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--ruckus-cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---- Ruckus surfaces (restrained, readable — chaos lives in accents) ---- */
 .glass-panel {
-  background: rgba(15, 18, 28, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 18, 20, 0.92);
+  border: 1px solid var(--border-subtle);
 }
 
 .glass-panel-subtle {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(245, 241, 232, 0.03);
+  border: 1px solid var(--border-subtle);
 }
 
 .glass-dock {
-  background: rgba(18, 22, 34, 0.85);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.15);
+  background: rgba(16, 18, 20, 0.94);
+  border: 1px solid var(--border-strong);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(0, 213, 255, 0.07);
 }
 
-/* Aurora Glow Effect */
+/* Faint spray-mist glow used sparingly on hero surfaces */
 .aurora-glow {
   position: absolute;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.18) 40%, rgba(56, 189, 248, 0.1) 65%, transparent 80%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 213, 255, 0.14) 0%,
+    rgba(255, 90, 31, 0.07) 45%,
+    transparent 75%
+  );
   filter: blur(80px);
 }
 
-/* Pulsing Conic Border */
-@keyframes spinGlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* ---- Ruckus display type: expressive headlines only, never body/controls ---- */
+.ruckus-display {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1.02;
 }
 
+.ruckus-display .tilt {
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+/* Quick painted underline reveal for the hero CTA / headline accent */
+.paint-underline {
+  position: relative;
+  white-space: nowrap;
+}
+
+.paint-underline > svg {
+  position: absolute;
+  left: -2%;
+  bottom: -0.18em;
+  width: 104%;
+  height: 0.32em;
+  overflow: visible;
+}
+
+.paint-underline > svg path {
+  stroke: var(--ruckus-orange);
+  stroke-width: 5;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: paint-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+
+@keyframes paint-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Small jitter-snap on major CTA hover — quick and confident */
+.cta-ruckus {
+  transition:
+    transform 120ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.cta-ruckus:hover {
+  transform: translateY(-1px) rotate(-0.5deg);
+  filter: brightness(1.08);
+}
+
+.cta-ruckus:active {
+  transform: translateY(0) rotate(0deg) scale(0.99);
+}
+
+/* Agent crew pulse — cyan ping for active, orange for approval gating */
+.crew-pulse {
+  position: relative;
+}
+
+.crew-ping {
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  opacity: 0.75;
+  animation: crew-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes crew-ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Brief flash when work hands from one agent stage to the next */
+.handoff-flash {
+  animation: handoff-flash 0.6s ease-out;
+}
+
+@keyframes handoff-flash {
+  0% {
+    background-color: rgba(0, 213, 255, 0.22);
+    border-color: var(--border-cyan);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Short paint-stroke progress treatment */
+.paint-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.paint-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(0, 213, 255, 0.35) 50%,
+    transparent 80%
+  );
+  animation: paint-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes paint-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Legacy pulsing border kept for compatibility, recolored to Ruckus cyan */
 .pulsing-border {
   position: relative;
 }
 
 .pulsing-border::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(90deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(90deg, #00d5ff, #ff5a1f, #00d5ff);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: borderPulse 3s linear infinite;
 }
 
 @keyframes borderPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Subtle drywall grain for hero surfaces — never under dense text */
+.ruckus-grain {
+  background-image: radial-gradient(
+    rgba(245, 241, 232, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
 }
 
 /* Smooth custom scrollbars */
@@ -103,9 +267,30 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(245, 241, 232, 0.16);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 213, 255, 0.4);
+}
+
+/* Respect reduced motion: kill branded motion, keep state changes instant */
+@media (prefers-reduced-motion: reduce) {
+  .paint-underline > svg path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .crew-ping,
+  .paint-progress::after,
+  .pulsing-border::before,
+  .handoff-flash,
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin {
+    animation: none;
+  }
+  .cta-ruckus:hover,
+  .cta-ruckus:active {
+    transform: none;
+  }
 }

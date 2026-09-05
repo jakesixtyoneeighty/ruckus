@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Eveable | Autonomous Multi-Agent Web Builder",
-  description: "Autonomous full-stack application builder powered by Vercel Eve and Supabase.",
+  title: "Ruckus — One prompt. An entire AI dev crew.",
+  description:
+    "Give Ruckus an idea. A specialized AI crew designs, writes, checks, builds, fixes, and ships working software.",
 };
 
 export default function RootLayout({
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="bg-[#07080d] text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
+      <body className="bg-[#0a0b0d] text-[#f5f1e8] antialiased selection:bg-[#00d5ff]/30 selection:text-[#f5f1e8]">
         {children}
       </body>
     </html>

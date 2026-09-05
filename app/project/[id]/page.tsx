@@ -11,7 +11,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { id } = await params;
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#07080d]">
+    <div className="h-screen w-screen overflow-hidden bg-[#0a0b0d]">
       <StudioCanvas projectId={id} />
     </div>
   );

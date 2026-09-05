@@ -54,17 +54,17 @@ export function PreviewFrame({
   };
 
   return (
-    <main className="relative flex flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#07090e] shadow-2xl">
+    <main className="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-white/10 bg-[#0a0b0d] shadow-2xl">
       {/* Viewport Control Bar */}
-      <div className="flex h-10 items-center justify-between border-b border-white/5 bg-[#0e121d]/90 px-4 text-xs">
+      <div className="flex h-10 items-center justify-between border-b border-white/5 bg-[#101214]/90 px-4 text-xs">
         {/* Device Switcher */}
         <div className="flex items-center gap-1 rounded-lg bg-white/5 p-0.5">
           <button
             onClick={() => setDeviceMode("desktop")}
             className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 transition ${
               deviceMode === "desktop"
-                ? "bg-indigo-500/30 font-semibold text-indigo-300 shadow"
-                : "text-slate-400 hover:text-white"
+              ? "bg-[#00d5ff]/20 font-semibold text-[#00d5ff] shadow"
+              : "text-slate-400 hover:text-white"
             }`}
           >
             <Monitor className="h-3.5 w-3.5" />
@@ -74,7 +74,7 @@ export function PreviewFrame({
             onClick={() => setDeviceMode("tablet")}
             className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 transition ${
               deviceMode === "tablet"
-                ? "bg-indigo-500/30 font-semibold text-indigo-300 shadow"
+                ? "bg-[#00d5ff]/20 font-semibold text-[#00d5ff] shadow"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -85,7 +85,7 @@ export function PreviewFrame({
             onClick={() => setDeviceMode("mobile")}
             className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 transition ${
               deviceMode === "mobile"
-                ? "bg-indigo-500/30 font-semibold text-indigo-300 shadow"
+                ? "bg-[#00d5ff]/20 font-semibold text-[#00d5ff] shadow"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -182,7 +182,7 @@ export function PreviewFrame({
           <iframe
             key={iframeKey}
             src={effectiveUrl}
-            title="Eveable Generated App Preview"
+            title="Ruckus Generated App Preview"
             className="h-full w-full rounded-lg border-none bg-white"
             sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
           />

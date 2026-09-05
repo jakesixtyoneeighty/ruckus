@@ -26,12 +26,12 @@ export function FileTreeDrawer({ isOpen, onClose, files }: FileTreeDrawerProps) 
   };
 
   return (
-    <div className="absolute inset-y-0 right-0 z-50 flex w-full max-w-2xl flex-col border-l border-white/10 bg-[#0b0e17]/95 shadow-2xl backdrop-blur-3xl animate-in slide-in-from-right duration-300">
+    <div className="absolute inset-y-0 right-0 z-50 flex w-full max-w-2xl flex-col border-l border-white/10 bg-[#101214]/95 shadow-2xl animate-in slide-in-from-right duration-300">
       {/* Top Header */}
       <div className="flex h-12 items-center justify-between border-b border-white/10 px-5">
         <div className="flex items-center gap-2">
-          <Folder className="h-4 w-4 text-indigo-400" />
-          <span className="text-sm font-semibold text-white">Generated Project Files</span>
+          <Folder className="h-4 w-4 text-[#00d5ff]" />
+          <span className="text-sm font-semibold text-[#f5f1e8]">Generated Project Files</span>
           <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-mono text-slate-400">
             {files.length} files
           </span>
@@ -62,7 +62,7 @@ export function FileTreeDrawer({ isOpen, onClose, files }: FileTreeDrawerProps) 
                   onClick={() => setSelectedPath(file.path)}
                   className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs text-left transition ${
                     selectedPath === file.path
-                      ? "bg-indigo-500/20 text-indigo-300 font-medium border border-indigo-500/30"
+                      ? "bg-[#00d5ff]/15 text-[#00d5ff] font-medium border border-[#00d5ff]/30"
                       : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
                   }`}
                 >
@@ -75,7 +75,7 @@ export function FileTreeDrawer({ isOpen, onClose, files }: FileTreeDrawerProps) 
         </div>
 
         {/* Right: Code Viewer */}
-        <div className="flex flex-1 flex-col overflow-hidden bg-[#07090f]">
+        <div className="flex flex-1 flex-col overflow-hidden bg-[#0a0b0d]">
           {currentFile ? (
             <>
               <div className="flex h-9 items-center justify-between border-b border-white/5 bg-white/5 px-4 text-xs font-mono text-slate-400">

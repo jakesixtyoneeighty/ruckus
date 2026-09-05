@@ -1,6 +1,6 @@
 # Security Policy
 
-Eveable generates, validates, previews, and deploys applications with AI assistance. Treat it as a system that can execute generated code in a sandbox and perform external deployment side effects.
+Ruckus generates, validates, previews, and deploys applications with AI assistance. Treat it as a system that can execute generated code in a sandbox and perform external deployment side effects.
 
 ## Supported Versions
 
@@ -28,7 +28,7 @@ If GitHub private vulnerability reporting is enabled for this repository, use th
 
 ## Security Boundaries
 
-Eveable's main security boundaries are:
+Ruckus's main security boundaries are:
 
 - generated files are constrained to `/workspace/generated-app`
 - generated file paths must be safe relative paths
@@ -52,7 +52,7 @@ Never commit:
 - user data
 - generated app credentials
 
-Runtime secrets may be read by Eveable tools from the Eveable environment and passed to Vercel as deployment env flags when allowed. They must not be copied into generated source files, browser-exposed `NEXT_PUBLIC_*` variables, or generated `.env.local` files.
+Runtime secrets may be read by Ruckus tools from the Ruckus environment and passed to Vercel as deployment env flags when allowed. They must not be copied into generated source files, browser-exposed `NEXT_PUBLIC_*` variables, or generated `.env.local` files.
 
 ## Generated Code Review
 

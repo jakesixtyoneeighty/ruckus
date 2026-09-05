@@ -84,9 +84,9 @@ export function StudioCanvas({
   };
 
   return (
-    <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-[#07080d]">
-      {/* Ambient Radial Mesh Glow */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[450px] w-[800px] bg-radial from-indigo-500/15 via-purple-500/10 to-transparent blur-3xl" />
+    <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-[#0a0b0d]">
+      {/* Ambient spray-mist glow */}
+      <div className="aurora-glow top-0 left-1/2 h-[450px] w-[800px] -translate-x-1/2" />
 
       {/* Top HUD Subagent Pipeline */}
       <HudPipeline

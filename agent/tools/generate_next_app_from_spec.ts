@@ -73,7 +73,7 @@ export default defineTool({
     const spec = normalizeImplementationSpec(rawSpec);
     const sandbox = await ctx.getSandbox();
     const projectSlug = slugify(spec.projectSlug || spec.brandName);
-    const brandName = spec.brandName.trim() || "Eveable App";
+    const brandName = spec.brandName.trim() || "Generated App";
     const palette = normalizePalette(spec.palette);
     const sections = normalizeSections(spec.sections);
     const images = normalizeImages(spec.imageUrls);
@@ -296,7 +296,7 @@ function emptyPreview(port: number) {
 function normalizeImplementationSpec(
   raw: z.infer<typeof LooseImplementationSpecSchema>,
 ): z.infer<typeof ImplementationSpecSchema> {
-  const brandName = normalizeText(raw.brandName, "Eveable App");
+  const brandName = normalizeText(raw.brandName, "Generated App");
   const projectSlug = normalizeText(raw.projectSlug, slugify(brandName));
   const brief = normalizeBrief(raw.brief, raw.message, brandName);
   const designSpec = asRecord(raw.designSpec);

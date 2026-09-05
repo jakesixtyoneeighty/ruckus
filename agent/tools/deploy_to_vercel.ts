@@ -18,7 +18,7 @@ const defaultDeployEnvAllowlist = [
 
 export default defineTool({
   description:
-    "Deploy the validated generated app from /workspace/generated-app to Vercel, then verify the deployment URL with vercel inspect. Requires VERCEL_TOKEN in the Eveable runtime environment.",
+    "Deploy the validated generated app from /workspace/generated-app to Vercel, then verify the deployment URL with vercel inspect. Requires VERCEL_TOKEN in the Ruckus runtime environment.",
   inputSchema: z.object({
     target: z.enum(["preview", "production"]).default("preview"),
     projectName: z.string().min(1).optional(),
@@ -35,7 +35,7 @@ export default defineTool({
         agent: "vercel_deploy" as const,
         status: "blocked" as const,
         message:
-          "Vercel deployment requires VERCEL_TOKEN in Eveable's runtime environment.",
+          "Vercel deployment requires VERCEL_TOKEN in the Ruckus runtime environment.",
         target,
         sandboxId: sandbox.id,
         workspacePath: generatedWorkspacePath,
@@ -51,7 +51,7 @@ export default defineTool({
           stderr: "Missing VERCEL_TOKEN.",
         },
         notes: [
-          "Add VERCEL_TOKEN to .env.local or the deployed Eveable environment.",
+          "Add VERCEL_TOKEN to .env.local or the deployed Ruckus environment.",
           "Optional: set VERCEL_PROJECT_NAME and VERCEL_SCOPE to control where generated apps deploy.",
         ],
         nextAgent: "user_action" as const,

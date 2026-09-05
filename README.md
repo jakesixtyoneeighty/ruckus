@@ -1,13 +1,13 @@
-# "Build Whatever" by sixtyoneeighty - powered by Eve
+# Ruckus by sixtyoneeighty
 
-"Build Whatever" by sixtyoneeighty - powered by Eve (Eveable) is an open-source alternative to Lovable built on Vercel Eve. It turns a prompt into a complete Next.js application, validates it in an Eve sandbox, starts a live preview, runs a security review, deploys to Vercel, and returns a verified deployment URL.
+Ruckus by sixtyoneeighty (Ruckus) is an open-source alternative to Lovable built on Vercel Eve. You have the idea — Ruckus assembles the crew: it turns a prompt into a complete Next.js application, validates it in an Eve sandbox, starts a live preview, runs a security review, deploys to Vercel, and returns a verified deployment URL.
 
-Eveable began as a standalone Eve-powered implementation of the existing `jaxagentsdk` builder pipeline. The NestJS `jaxagentsdk` remains untouched, so developers can compare the original architecture with a filesystem-first Eve implementation.
+Ruckus began as a standalone Eve-powered implementation of the existing `jaxagentsdk` builder pipeline. The NestJS `jaxagentsdk` remains untouched, so developers can compare the original architecture with a filesystem-first Eve implementation.
 
-## Why Eveable
+## Why Ruckus
 
 - **Built on Vercel Eve:** durable sessions, streamable runs, subagents, tools, human approval, and sandbox access come from Eve.
-- **Real builder pipeline:** Eveable does not stop after writing files. It validates, previews, reviews, deploys, and verifies.
+- **Real builder pipeline:** Ruckus does not stop after writing files. It validates, previews, reviews, deploys, and verifies.
 - **Open architecture:** each specialist is a folder under `agent/subagents/`, each integration is a typed Eve tool under `agent/tools/`.
 - **Sandbox-first generation:** generated projects are written to `/workspace/generated-app`, not into the repository.
 - **Refero-grounded design research:** the design research subagent can use Refero MCP for real visual references before approval.
@@ -21,14 +21,14 @@ The v1 release includes root orchestration, seven declared subagents, typed shar
 
 ## Architecture
 
-Eve is filesystem-first: an agent is a directory of instructions, tools, channels, sandbox config, shared code, and subagents. Eveable follows that shape closely.
+Eve is filesystem-first: an agent is a directory of instructions, tools, channels, sandbox config, shared code, and subagents. Ruckus follows that shape closely.
 
 ```mermaid
 flowchart TD
   User["Client / Eve TUI"]
   Session["POST /eve/v1/session"]
   Stream["GET /eve/v1/session/:id/stream"]
-  Root["Eveable Root Agent"]
+  Root["Ruckus Root Agent"]
 
   User --> Session
   Session --> Stream
@@ -76,7 +76,7 @@ flowchart TD
 
 ## Pipeline Guarantees
 
-Eveable is intentionally strict about what counts as complete:
+Ruckus is intentionally strict about what counts as complete:
 
 1. The root agent must call `intent` first for every user message.
 2. Unsafe prompts are refused before builder subagents run.
@@ -173,7 +173,7 @@ Eveable is intentionally strict about what counts as complete:
 
 ## Tools
 
-Eveable uses narrow local Eve tools instead of broad shell/file access:
+Ruckus uses narrow local Eve tools instead of broad shell/file access:
 
 | Tool | Scope |
 | --- | --- |
@@ -188,7 +188,7 @@ Eveable uses narrow local Eve tools instead of broad shell/file access:
 
 ## MCP Connections
 
-Eveable v1 keeps MCP usage narrow. The only authored MCP connection is Refero,
+Ruckus v1 keeps MCP usage narrow. The only authored MCP connection is Refero,
 and it is scoped to `agent/subagents/design_research/` so code generation,
 autofix, deployment, and security review do not inherit it.
 
@@ -252,10 +252,10 @@ For local development, save it in `.env.local`:
 ```bash
 VERCEL_TOKEN=...
 VERCEL_SCOPE=your-team-or-username
-VERCEL_PROJECT_NAME=eveable-generated-apps
+VERCEL_PROJECT_NAME=ruckus-generated-apps
 ```
 
-`pnpm run dev` loads `.env.local` for Eveable, but your shell does not
+`pnpm run dev` loads `.env.local` for Ruckus, but your shell does not
 automatically load it for direct CLI commands. If you want to run Vercel CLI
 commands with the token from your terminal, source the file first:
 
@@ -307,7 +307,7 @@ INSFORGE_API_KEY=...
 
 Refero is used only for design inspiration in the `design_research` subagent.
 Do not commit Refero keys. Put them in `.env.local` for local development or in
-your deployed Eveable project environment.
+your deployed Ruckus project environment.
 
 `EVEABLE_ROOT_MODEL` replaces the older `MAYAR_ROOT_MODEL`; the runtime still accepts `MAYAR_ROOT_MODEL` as a fallback. `EVEABLE_DEPLOY_ENV_ALLOWLIST` replaces `MAYAR_DEPLOY_ENV_ALLOWLIST`; that older key is also still accepted as a fallback.
 
@@ -315,7 +315,7 @@ Never commit real `.env.local` values. Generated apps must not receive real secr
 
 ## Model Configuration
 
-"Build Whatever" can use different models per role.
+"Ruckus can use different models per role. No single model is best at everything, so Ruckus puts the right intelligence on each part of the job."
 
 | Role | Env var | Default |
 | --- | --- | --- |
@@ -346,7 +346,7 @@ pnpm run dev
 ```
 
 `pnpm run dev` starts Eve with `--no-ui`, hidden subagent streams, and collapsed
-tool calls. That is the recommended mode for Eveable because the builder can
+tool calls. That is the recommended mode for Ruckus because the builder can
 generate large source payloads and the interactive TUI can repaint those events
 heavily. To use Eve's interactive terminal UI, run:
 
@@ -360,9 +360,9 @@ To debug every child-agent payload and tool argument, use:
 pnpm run dev:verbose
 ```
 
-## How To Prompt Eveable
+## How To Prompt Ruckus
 
-`pnpm run dev` runs Eveable in API server mode, so you do not type prompts into
+`pnpm run dev` runs Ruckus in API server mode, so you do not type prompts into
 the terminal that is running the server. Keep that terminal open, then send
 messages from a second terminal, script, or UI client.
 
@@ -433,7 +433,7 @@ If you prefer an interactive terminal prompt instead of API mode, run:
 pnpm run dev:tui
 ```
 
-API mode is the recommended default because Eveable can emit large tool and
+API mode is the recommended default because Ruckus can emit large tool and
 subagent events during generation, validation, preview, security review, and
 deployment.
 
@@ -478,15 +478,15 @@ What they do:
 Generated app deployment happens from inside the Eve sandbox:
 
 1. `deploy_to_vercel` runs in `/workspace/generated-app`.
-2. It uses `VERCEL_TOKEN` from the Eveable runtime environment.
+2. It uses `VERCEL_TOKEN` from the Ruckus runtime environment.
 3. It passes selected server-only env vars through Vercel CLI `-e` and `-b` flags.
 4. It parses the Vercel deployment URL.
 5. It verifies deployment readiness with `vercel inspect`.
 
-If `VERCEL_TOKEN` is missing, Eveable reports a blocked deployment with the exact configuration required. It does not invent deployment URLs.
+If `VERCEL_TOKEN` is missing, Ruckus reports a blocked deployment with the exact configuration required. It does not invent deployment URLs.
 
 When testing deployment manually, remember that `.env.local` is an application
-env file, not a shell profile. Either start Eveable with `pnpm run dev`, which
+env file, not a shell profile. Either start Ruckus with `pnpm run dev`, which
 loads it for the runtime, or source it before direct CLI tests:
 
 ```bash
@@ -500,7 +500,7 @@ vercel whoami --token "$VERCEL_TOKEN"
 
 ### v1.0.0
 
-- Introduced Eveable as an Eve-powered alternative to Lovable.
+- Introduced Ruckus as an Eve-powered alternative to Lovable.
 - Added durable session entrypoint through `/eve/v1/session` and `/eve/v1/session/:sessionId/stream`.
 - Added multi-agent pipeline: intent, conversation, orchestrator, design research, code writer, autofix, and security review.
 - Added human approval checkpoint before code generation through Eve's built-in `ask_question`.
@@ -559,8 +559,8 @@ Important security expectations:
 
 - Eve is in preview, so public APIs can change.
 - Live agent testing requires model credentials and can incur usage.
-- Eveable intentionally keeps generated apps inside the sandbox unless the Vercel deployment tool succeeds.
-- The current Eve/provider combination has had issues with optional subagent `outputSchema` in this workflow, so Eveable keeps shared Zod schemas for developers while asking subagents for JSON text through `message`.
+- Ruckus intentionally keeps generated apps inside the sandbox unless the Vercel deployment tool succeeds.
+- The current Eve/provider combination has had issues with optional subagent `outputSchema` in this workflow, so Ruckus keeps shared Zod schemas for developers while asking subagents for JSON text through `message`.
 
 ## License
 

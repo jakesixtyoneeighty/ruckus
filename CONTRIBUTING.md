@@ -1,6 +1,6 @@
-# Contributing To Eveable
+# Contributing To Ruckus
 
-Thanks for helping improve Eveable. This project is an Eve-powered AI app builder, so changes should preserve the core guarantee: generated apps are planned, approved, validated, previewed, security-reviewed, deployed, and verified before the agent calls them complete.
+Thanks for helping improve Ruckus. This project is an Eve-powered AI app builder, so changes should preserve the core guarantee: generated apps are planned, approved, validated, previewed, security-reviewed, deployed, and verified before the agent calls them complete.
 
 ## Development Setup
 
@@ -100,7 +100,7 @@ Before opening a pull request:
 
 ## License
 
-By contributing to Eveable, you agree that your contribution is licensed under the MIT license.
+By contributing to Ruckus, you agree that your contribution is licensed under the MIT license.
 
 ## Reporting Bugs
 

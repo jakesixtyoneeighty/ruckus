@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, ArrowRight, Paperclip, Palette, Zap, User } from "lucide-react";
+import { ArrowRight, Paperclip, Palette, Zap, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { StudioCanvas } from "@/components/studio/studio-canvas";
+import { RuckusMark } from "@/components/studio/ruckus-mark";
 import Link from "next/link";
 
 const SUGGESTIONS = [
@@ -42,24 +43,24 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="relative flex min-h-screen flex-col items-center justify-between overflow-hidden px-4 py-8 bg-[#07080d]"
+          className="ruckus-grain relative flex min-h-screen flex-col items-center justify-between overflow-hidden px-4 py-8 bg-[#0a0b0d]"
         >
-          {/* Ambient Aurora Glow */}
-          <div className="pointer-events-none absolute top-[-50px] left-1/2 -translate-x-1/2 h-[450px] w-[750px] bg-radial from-indigo-500/25 via-purple-500/15 to-transparent blur-[90px]" />
+          {/* Ambient spray-mist glow */}
+          <div className="aurora-glow top-[-50px] left-1/2 h-[450px] w-[750px] -translate-x-1/2" />
 
           {/* Top Navbar */}
           <header className="relative z-20 flex w-full max-w-5xl items-center justify-between">
-            <div className="flex items-center gap-2.5 font-bold text-base tracking-tight text-white">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-[0_0_16px_rgba(168,85,247,0.5)]">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <span>Eveable</span>
+            <div className="flex items-center gap-2.5">
+              <RuckusMark size={32} />
+              <span className="text-base font-extrabold uppercase tracking-tight text-[#f5f1e8]">
+                Ruckus
+              </span>
             </div>
 
             <div className="flex items-center gap-3">
               <Link
                 href="/login"
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-300 transition hover:border-[#00d5ff]/40 hover:text-white"
               >
                 <User className="h-3.5 w-3.5 text-slate-400" />
                 <span>Sign In</span>
@@ -70,22 +71,31 @@ export default function Home() {
           {/* Hero Center Content */}
           <div className="relative z-20 flex w-full max-w-3xl flex-col items-center text-center my-auto">
             {/* Pill Tag */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-xs font-semibold text-purple-300 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
-              <Zap className="h-3 w-3 text-purple-400" />
-              <span>Multi-Agent Autonomous Full-Stack Builder</span>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-lg border border-[#ff5a1f]/40 bg-[#ff5a1f]/10 px-3 py-1 text-xs font-semibold text-[#ff8a5c] shadow-[0_0_20px_rgba(255,90,31,0.15)]">
+              <Zap className="h-3 w-3 text-[#ff5a1f]" />
+              <span>One prompt. An entire AI dev crew.</span>
             </div>
 
             {/* Headline */}
-            <h1 className="mb-4 text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-              What would you like to build?
+            <h1 className="ruckus-display mb-4 text-4xl sm:text-6xl text-[#f5f1e8]">
+              You have the idea.{" "}
+              <span className="tilt text-[#00d5ff]">Ruckus</span> has the{" "}
+              <span className="paint-underline">
+                crew.
+                <svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M4 10 C 60 4, 140 4, 196 8" />
+                </svg>
+              </span>
             </h1>
 
-            <p className="mb-8 max-w-xl text-sm sm:text-base text-slate-400 leading-relaxed">
-              Describe your idea. Eveable will autonomously architect the solution, research designs, validate code in a sandbox, and deploy to Vercel.
+            <p className="mb-8 max-w-xl text-sm sm:text-base text-[#9ba3ab] leading-relaxed">
+              Tell Ruckus what you want. Specialized agents put the right
+              intelligence on each part of the job — then design, write, check,
+              build, fix, and ship working software.
             </p>
 
             {/* Centered Hero Prompt Box */}
-            <div className="w-full rounded-2xl border border-white/15 bg-[#0f1322]/85 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(99,102,241,0.15)] backdrop-blur-3xl transition duration-300 focus-within:border-purple-500/50 focus-within:shadow-[0_24px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(168,85,247,0.25)]">
+            <div className="w-full rounded-xl border border-white/15 bg-[#101214]/90 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_32px_rgba(0,213,255,0.08)] transition duration-300 focus-within:border-[#00d5ff]/50 focus-within:shadow-[0_24px_70px_rgba(0,0,0,0.9),0_0_40px_rgba(0,213,255,0.15)]">
               <textarea
                 rows={3}
                 value={prompt}
@@ -96,8 +106,8 @@ export default function Home() {
                     handleStartBuild();
                   }
                 }}
-                placeholder="Build a sleek dark-mode landing page for a generative AI music platform with waveform audio visualizer, pricing cards, and customer reviews..."
-                className="w-full resize-none bg-transparent text-sm sm:text-base text-white placeholder-slate-500 outline-none leading-relaxed"
+                placeholder="Describe it. We'll assemble the crew — e.g. a dark-mode landing page for a generative AI music platform with waveform visualizer, pricing cards, and reviews..."
+                className="w-full resize-none bg-transparent text-sm sm:text-base text-[#f5f1e8] placeholder-[#9ba3ab]/60 outline-none leading-relaxed"
               />
 
               <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
@@ -107,7 +117,7 @@ export default function Home() {
                     <span className="hidden sm:inline">Attach Spec</span>
                   </button>
                   <button className="flex items-center gap-1 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 transition hover:bg-white/10 hover:text-white">
-                    <Palette className="h-3 w-3 text-purple-400" />
+                    <Palette className="h-3 w-3 text-[#00d5ff]" />
                     <span className="hidden sm:inline">Refero Design</span>
                   </button>
                 </div>
@@ -115,9 +125,9 @@ export default function Home() {
                 <button
                   onClick={() => handleStartBuild()}
                   disabled={!prompt.trim()}
-                  className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(168,85,247,0.5)] transition hover:brightness-110 disabled:opacity-40 disabled:hover:brightness-100"
+                  className="cta-ruckus flex items-center gap-1.5 rounded-lg bg-[#ff5a1f] px-5 py-2 text-xs sm:text-sm font-bold text-[#0a0b0d] shadow-[0_4px_20px_rgba(255,90,31,0.45)] transition disabled:opacity-40"
                 >
-                  <span>Build with Eve</span>
+                  <span>Start a Ruckus</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
@@ -132,7 +142,7 @@ export default function Home() {
                     setPrompt(s);
                     handleStartBuild(s);
                   }}
-                  className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-slate-400 transition hover:border-indigo-500/40 hover:bg-indigo-500/10 hover:text-white"
+                  className="rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-slate-400 transition hover:border-[#00d5ff]/40 hover:bg-[#00d5ff]/10 hover:text-white"
                 >
                   <span>✦ {s}</span>
                 </button>
@@ -142,7 +152,7 @@ export default function Home() {
 
           {/* Footer */}
           <footer className="relative z-20 text-center text-xs text-slate-600">
-            Powered by Vercel Eve Agent Framework & Supabase Database
+            A sixtyoneeighty product · Crew powered by Eve
           </footer>
         </motion.div>
       )}

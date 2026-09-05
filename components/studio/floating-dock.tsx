@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, Send, FolderCode, Terminal, ShieldAlert, ShieldCheck, Loader2 } from "lucide-react";
+import { Send, FolderCode, Terminal, ShieldAlert, ShieldCheck, Loader2 } from "lucide-react";
 import { playSendSound } from "./sound-effects";
+import { RuckusMark } from "./ruckus-mark";
 
 interface FloatingDockProps {
   onSendPrompt: (prompt: string) => Promise<void>;
@@ -44,11 +45,11 @@ export function FloatingDock({
 
   return (
     <div className="absolute bottom-6 left-1/2 z-40 w-full max-w-2xl -translate-x-1/2 px-4">
-      <div className="overflow-hidden rounded-2xl border border-white/15 bg-[#121622]/85 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(99,102,241,0.15)] backdrop-blur-3xl transition-all duration-300 focus-within:border-indigo-500/50 focus-within:shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_50px_rgba(99,102,241,0.25)]">
+      <div className="overflow-hidden rounded-xl border border-white/15 bg-[#101214]/95 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_32px_rgba(0,213,255,0.08)] transition-all duration-300 focus-within:border-[#00d5ff]/50 focus-within:shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(0,213,255,0.15)]">
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="flex items-center gap-2 px-3 py-1">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-500/30 to-purple-500/30 text-purple-300">
-            {isBusy ? <Loader2 className="h-4 w-4 animate-spin text-cyan-400" /> : <Sparkles className="h-4 w-4" />}
+          <div className="flex h-7 w-7 items-center justify-center">
+            {isBusy ? <Loader2 className="h-4 w-4 animate-spin text-[#00d5ff]" /> : <RuckusMark size={28} />}
           </div>
 
           <input
@@ -57,16 +58,16 @@ export function FloatingDock({
             disabled={isBusy}
             placeholder={
               isBusy
-                ? "Eveable is actively executing..."
-                : "Ask Eveable to refine, add new sections, modify styling..."
+                ? "The crew is on it..."
+                : "Tell the crew to refine, add sections, restyle..."
             }
-            className="flex-1 bg-transparent text-sm text-white placeholder-slate-500 outline-none disabled:opacity-60"
+            className="flex-1 bg-transparent text-sm text-[#f5f1e8] placeholder-[#9ba3ab]/60 outline-none disabled:opacity-60"
           />
 
           <button
             type="submit"
             disabled={isBusy || !input.trim()}
-            className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-[0_2px_12px_rgba(168,85,247,0.4)] transition hover:brightness-110 disabled:opacity-40 disabled:hover:brightness-100"
+            className="cta-ruckus flex h-8 w-8 items-center justify-center rounded-lg bg-[#00d5ff] text-[#0a0b0d] shadow-[0_2px_12px_rgba(0,213,255,0.4)] transition disabled:opacity-40"
           >
             <Send className="h-3.5 w-3.5" />
           </button>
@@ -79,7 +80,7 @@ export function FloatingDock({
               onClick={onToggleFiles}
               className="flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
             >
-              <FolderCode className="h-3 w-3 text-indigo-400" />
+              <FolderCode className="h-3 w-3 text-[#00d5ff]" />
               <span>Files ({fileCount})</span>
             </button>
 
@@ -87,7 +88,7 @@ export function FloatingDock({
               onClick={onToggleTerminal}
               className="flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
             >
-              <Terminal className="h-3 w-3 text-cyan-400" />
+              <Terminal className="h-3 w-3 text-[#ff5a1f]" />
               <span>Terminal ({terminalLogCount})</span>
             </button>
 

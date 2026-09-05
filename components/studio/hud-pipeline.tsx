@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Sparkles, Check, ArrowRight, ExternalLink, ShieldCheck, Volume2, VolumeX } from "lucide-react";
+import { Check, ArrowRight, ExternalLink, ShieldCheck, Volume2, VolumeX } from "lucide-react";
 import type { SubagentType, PipelineStage } from "@/lib/eve/types";
+import { RuckusMark } from "./ruckus-mark";
 
 interface HudPipelineProps {
   activeSubagent: SubagentType | null;
@@ -89,13 +90,11 @@ export function HudPipeline({
   };
 
   return (
-    <header className="relative z-30 mx-4 mt-3 mb-2 flex items-center justify-between rounded-full border border-white/10 bg-[#0f1322]/80 px-4 py-2 shadow-2xl backdrop-blur-2xl">
+    <header className="relative z-30 mx-4 mt-3 mb-2 flex items-center justify-between rounded-xl border border-white/10 bg-[#101214]/90 px-4 py-2 shadow-2xl">
       {/* Brand */}
-      <div className="flex items-center gap-2 font-bold text-sm tracking-tight text-white">
-        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]">
-          <Sparkles className="h-3.5 w-3.5" />
-        </div>
-        <span className="hidden sm:inline">Eveable Studio</span>
+      <div className="flex items-center gap-2 text-sm text-white">
+        <RuckusMark size={24} />
+        <span className="hidden sm:inline font-extrabold uppercase tracking-tight">Ruckus</span>
       </div>
 
       {/* Nodes Strip */}
@@ -110,11 +109,11 @@ export function HudPipeline({
               {i > 0 && <ArrowRight className="h-3 w-3 flex-shrink-0 text-slate-600" />}
 
               <div
-                className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 font-medium transition-all duration-300 ${
+                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-medium transition-all duration-300 ${
                   isNodeActive
                     ? node.id === "approval"
-                      ? "border border-amber-400/40 bg-amber-400/15 text-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.25)] animate-pulse"
-                      : "border border-cyan-400/40 bg-cyan-400/15 text-cyan-300 shadow-[0_0_16px_rgba(56,189,248,0.25)] animate-pulse"
+                      ? "border border-[#ff5a1f]/50 bg-[#ff5a1f]/15 text-[#ff8a5c] shadow-[0_0_16px_rgba(255,90,31,0.25)] animate-pulse"
+                      : "border border-[#00d5ff]/40 bg-[#00d5ff]/10 text-[#00d5ff] shadow-[0_0_16px_rgba(0,213,255,0.2)]"
                     : isDone
                     ? "bg-white/5 text-slate-300"
                     : "bg-transparent text-slate-500"
@@ -123,9 +122,9 @@ export function HudPipeline({
                 {isDone ? (
                   <Check className="h-3 w-3 text-emerald-400" />
                 ) : isNodeActive ? (
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500"></span>
+                  <span className="crew-pulse relative flex h-2 w-2">
+                    <span className={`crew-ping ${node.id === "approval" ? "bg-[#ff5a1f]" : "bg-[#00d5ff]"}`}></span>
+                    <span className={`relative inline-flex h-2 w-2 rounded-full ${node.id === "approval" ? "bg-[#ff5a1f]" : "bg-[#00d5ff]"}`}></span>
                   </span>
                 ) : null}
                 <span className="whitespace-nowrap">{node.label}</span>

@@ -36,13 +36,13 @@ export function TerminalDrawer({
   };
 
   return (
-    <div className="absolute inset-y-0 right-0 z-50 flex w-full max-w-2xl flex-col border-l border-white/10 bg-[#07090e]/95 shadow-2xl backdrop-blur-3xl animate-in slide-in-from-right duration-300">
+    <div className="absolute inset-y-0 right-0 z-50 flex w-full max-w-2xl flex-col border-l border-white/10 bg-[#0a0b0d]/95 shadow-2xl animate-in slide-in-from-right duration-300">
       {/* Top Bar */}
-      <div className="flex h-12 items-center justify-between border-b border-white/10 bg-[#0c101a] px-5">
+      <div className="flex h-12 items-center justify-between border-b border-white/10 bg-[#101214] px-5">
         <div className="flex items-center gap-2">
-          <TerminalIcon className="h-4 w-4 text-cyan-400" />
-          <span className="text-sm font-semibold text-white">Execution Console & Quality Logs</span>
-          <span className="rounded-full bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 text-[10px] font-mono text-cyan-300">
+          <TerminalIcon className="h-4 w-4 text-[#00d5ff]" />
+          <span className="text-sm font-semibold text-[#f5f1e8]">Execution Console & Quality Logs</span>
+          <span className="rounded-md bg-[#00d5ff]/10 border border-[#00d5ff]/30 px-2 py-0.5 text-[10px] font-mono text-[#00d5ff]">
             Live Sandbox
           </span>
         </div>
