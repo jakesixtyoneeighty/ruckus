@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { ArrowRight, Paperclip, Palette, Zap, User } from "lucide-react";
+import React, { useState, useEffect, useMemo } from "react";
+import { ArrowRight, Paperclip, Palette, Zap, User, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { StudioCanvas } from "@/components/studio/studio-canvas";
 import { RuckusMark } from "@/components/studio/ruckus-mark";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const SUGGESTIONS = [
   "Cyberpunk Ramen Bar with interactive table reservation & neon audio vibes",
@@ -17,6 +19,33 @@ const SUGGESTIONS = [
 export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [activeSessionPrompt, setActiveSessionPrompt] = useState<string | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
+  const supabase = useMemo(() => createClient(), []);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setLoadingUser(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoadingUser(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [supabase]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
   const handleStartBuild = (selectedPrompt?: string) => {
     const p = selectedPrompt || prompt;
@@ -58,13 +87,52 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Link
-                href="/login"
-                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-300 transition hover:border-[#00d5ff]/40 hover:text-white"
-              >
-                <User className="h-3.5 w-3.5 text-slate-400" />
-                <span>Sign In</span>
-              </Link>
+              {loadingUser ? (
+                <div className="h-8 w-20 animate-pulse rounded-lg bg-white/5" />
+              ) : user ? (
+                <div className="flex items-center gap-2.5">
+                  {/* Logged in indicator */}
+                  <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                    </span>
+                    {user.user_metadata?.avatar_url ? (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt="Profile"
+                        className="h-4 w-4 rounded-full border border-white/20 object-cover"
+                      />
+                    ) : (
+                      <User className="h-3.5 w-3.5 text-[#00d5ff]" />
+                    )}
+                    <span className="max-w-[120px] truncate font-medium text-[#f5f1e8] sm:max-w-[180px]">
+                      {user.user_metadata?.full_name ||
+                        user.user_metadata?.name ||
+                        user.email?.split("@")[0] ||
+                        "Logged in"}
+                    </span>
+                  </div>
+
+                  {/* Log Out Button */}
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-400 transition hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-300"
+                    title="Log out"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Log Out</span>
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-300 transition hover:border-[#00d5ff]/40 hover:text-white"
+                >
+                  <User className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Sign In</span>
+                </Link>
+              )}
             </div>
           </header>
 

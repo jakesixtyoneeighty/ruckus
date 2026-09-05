@@ -1,14 +1,14 @@
-# Eveable Frontend Studio Implementation Plan
+# Ruckus Frontend Studio Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a consumer-grade, high-polish web frontend studio (Floating Glass Canvas) for Eveable with Next.js 15+ App Router, Supabase Auth & Database, real-time Eve agent streaming, device-framed live preview, and micro-interactions.
+**Goal:** Build a consumer-grade, high-polish web frontend studio (Floating Glass Canvas) for Ruckus with Next.js 15+ App Router, Supabase Auth & Database, real-time Eve agent streaming, device-framed live preview, and micro-interactions.
 
 **Architecture:** Monolithic architecture wrapping Next.js in the repository root with Eve's official `withEve(nextConfig)`. Eve routes `/eve/v1/*` mount on the same origin. A custom `EveAgentReducer` projects multi-agent runs, subagent thoughts, tool execution, and HITL design approvals into a cyber-luxe studio workspace.
 
 **Tech Stack:** Next.js 15+ (App Router), React 19, TypeScript, Tailwind CSS, Framer Motion, Lucide React, `@supabase/ssr`, `@supabase/supabase-js`, `eve/react`, `eve/next`.
 
-**Spec:** [`.specs/superpowers/specs/2026-09-03-eveable-frontend-design.md`](file:///Users/jacobambroz/Documents/GitHub/eveable/.specs/superpowers/specs/2026-09-03-eveable-frontend-design.md)
+**Spec:** [`.specs/superpowers/specs/2026-09-03-ruckus-frontend-design.md`](file:///Users/jacobambroz/Documents/GitHub/eveable/.specs/superpowers/specs/2026-09-03-ruckus-frontend-design.md)
 
 ## Global Constraints
 - `scripts/smoke.mjs` must remain 100% passing at all times.
@@ -178,7 +178,7 @@ Create `app/(auth)/login/page.tsx` supporting Supabase GitHub/Google OAuth and m
 Run: `pnpm run typecheck`
 Expected: 0 type errors.
 
-- [ ] **Step 2: Run Eveable Smoke Tests**
+- [ ] **Step 2: Run Ruckus Smoke Tests**
 Run: `pnpm run smoke`
 Expected: PASS ("smoke: Eveable project structure, release version, and model config look good.")
 

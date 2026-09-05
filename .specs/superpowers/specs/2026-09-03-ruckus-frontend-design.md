@@ -1,4 +1,4 @@
-# Eveable Frontend Studio Design Specification
+# Ruckus Frontend Studio Design Specification
 
 **Date:** 2026-09-03  
 **Status:** Approved  
@@ -9,9 +9,9 @@
 
 ## 1. Executive Summary & Vision
 
-Eveable is an autonomous, full-stack multi-agent application builder powered by Vercel's Eve agent framework. Its existing engine orchestrates 7 specialist subagents (`intent`, `orchestrator`, `design_research` with Refero MCP, `ask_question` HITL checkpoint, `generate_next_app_from_spec` / `code_writer`, `autofix`, `start_preview`, `run_security_review`, and `deploy_to_vercel`).
+Ruckus is an autonomous, full-stack multi-agent application builder powered by Vercel's Eve agent framework. Its existing engine orchestrates 7 specialist subagents (`intent`, `orchestrator`, `design_research` with Refero MCP, `ask_question` HITL checkpoint, `generate_next_app_from_spec` / `code_writer`, `autofix`, `start_preview`, `run_security_review`, and `deploy_to_vercel`).
 
-This design specification adds a world-class, high-polish web frontend studio (inspired by Lovable, v0, and Bolt) to transform Eveable from a CLI/TUI-operated builder into an intuitive, consumer-grade visual app studio.
+This design specification adds a world-class, high-polish web frontend studio (inspired by Lovable, v0, and Bolt) to transform Ruckus from a CLI/TUI-operated builder into an intuitive, consumer-grade visual app studio.
 
 ---
 
