@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { StudioCanvas } from "@/components/studio/studio-canvas";
 import { RuckusMark } from "@/components/studio/ruckus-mark";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
@@ -22,6 +23,7 @@ export function HomeClient({ initialUser }: { initialUser: SupabaseUser | null }
   const [user, setUser] = useState<SupabaseUser | null>(initialUser);
 
   const supabase = useMemo(() => createClient(), []);
+  const router = useRouter();
 
   useEffect(() => {
     const {
@@ -38,6 +40,11 @@ export function HomeClient({ initialUser }: { initialUser: SupabaseUser | null }
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    setActiveSessionPrompt(null);
+    // Back to the landing/login gate — the server component re-checks the
+    // session on refresh and serves the gate when signed out.
+    router.push("/");
+    router.refresh();
   };
 
   const handleStartBuild = (selectedPrompt?: string) => {
