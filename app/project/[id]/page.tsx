@@ -1,5 +1,7 @@
 import React from "react";
+import { redirect } from "next/navigation";
 import { StudioCanvas } from "@/components/studio/studio-canvas";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -8,6 +10,16 @@ interface ProjectPageProps {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // No session, no studio — back to the landing/login gate.
+  if (!user) {
+    redirect("/");
+  }
+
   const { id } = await params;
 
   return (

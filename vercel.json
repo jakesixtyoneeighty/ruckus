@@ -2,20 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "pnpm exec next build",
-  "installCommand": "pnpm install",
-  "experimentalServices": {
-    "web": {
-      "entrypoint": ".",
-      "framework": "nextjs",
-      "mount": "/",
-      "type": "web"
-    },
-    "eve": {
-      "buildCommand": "eve build",
-      "entrypoint": ".",
-      "framework": "eve",
-      "mount": "/_eve_internal/eve",
-      "type": "web"
-    }
-  }
+  "installCommand": "pnpm install"
 }
